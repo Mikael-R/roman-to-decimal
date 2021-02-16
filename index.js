@@ -1,4 +1,5 @@
 const romanLetterToDecimal = (letter) => {
+  if (typeof letter !== 'string') return 0
   letter = letter.toUpperCase().trim()
 
   switch(true) {
@@ -15,7 +16,9 @@ const romanLetterToDecimal = (letter) => {
     case letter === 'D':
       return 500
     case letter === 'M':
-    return 1000
+      return 1000
+    default:
+      return 0
   }
 }
 
@@ -26,12 +29,11 @@ const romanToDecimal = (romanNumber) => {
     const currentLetterValue = romanLetterToDecimal(romanNumber[i])
     const nextLetterValue = romanLetterToDecimal(romanNumber[i + 1] || '')
 
-    if (nextLetterValue > currentLetterValue) decimalNumber -= currentLetterValue
+    if (currentLetterValue < nextLetterValue) decimalNumber -= currentLetterValue
     else decimalNumber += currentLetterValue
-
   }
 
   return decimalNumber
 }
 
-console.log(romanToDecimal('XXXVIV'))
+console.log(romanToDecimal('XXXIX'))
